@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "LDXNetKit.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    NSDictionary *dic = @{@"cmd":@"audios",
+                          @"page":@"1",
+                          @"pagesize":@30
+                          };
+    [LDXNetKit GETUrlString:@"http://viavia.madv360.com:9999/viavia.php" param:dic complate:^(NSURLResponse *response, NSDictionary *result) {
+        
+    } failed:^(NSURLResponse *response, NSError *connectionError) {
+        
+    }];
+    
+//    [LDXNetKit downloadUrlString:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        
+//    } failed:^(NSURLResponse *response, NSError *connectionError) {
+//        
+//    }];
+    
+    [[[LDXNetKit alloc] init] downloadUrlString:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil progress:^(float progress) {
+        NSLog(@"%f",progress);
+    } downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
+        NSLog(@"%@",urlString);
+    } failed:^(NSURLResponse *response, NSError *connectionError) {
+        
+    }];
 }
 
 
