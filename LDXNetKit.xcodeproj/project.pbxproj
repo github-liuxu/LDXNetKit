@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C6B9E7620B17E05003EED4C /* LDXDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6B9E7520B17E05003EED4C /* LDXDownload.m */; };
+		0C6B9EB520B1C673003EED4C /* LDXDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C6B9EB420B1C673003EED4C /* LDXDownloadManager.m */; };
 		0CFBE82920ADDC8300014231 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFBE82820ADDC8300014231 /* AppDelegate.m */; };
 		0CFBE82C20ADDC8300014231 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFBE82B20ADDC8300014231 /* ViewController.m */; };
 		0CFBE82F20ADDC8300014231 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CFBE82D20ADDC8300014231 /* Main.storyboard */; };
@@ -17,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C6B9E7420B17E05003EED4C /* LDXDownload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LDXDownload.h; sourceTree = "<group>"; };
+		0C6B9E7520B17E05003EED4C /* LDXDownload.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LDXDownload.m; sourceTree = "<group>"; };
+		0C6B9EB320B1C673003EED4C /* LDXDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LDXDownloadManager.h; sourceTree = "<group>"; };
+		0C6B9EB420B1C673003EED4C /* LDXDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LDXDownloadManager.m; sourceTree = "<group>"; };
 		0CFBE82420ADDC8300014231 /* LDXNetKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LDXNetKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CFBE82720ADDC8300014231 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0CFBE82820ADDC8300014231 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -80,6 +86,10 @@
 			children = (
 				0CFBE83F20ADDCC900014231 /* LDXNetKit.h */,
 				0CFBE83E20ADDCC900014231 /* LDXNetKit.m */,
+				0C6B9E7420B17E05003EED4C /* LDXDownload.h */,
+				0C6B9E7520B17E05003EED4C /* LDXDownload.m */,
+				0C6B9EB320B1C673003EED4C /* LDXDownloadManager.h */,
+				0C6B9EB420B1C673003EED4C /* LDXDownloadManager.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -157,6 +167,8 @@
 			files = (
 				0CFBE84020ADDCC900014231 /* LDXNetKit.m in Sources */,
 				0CFBE82C20ADDC8300014231 /* ViewController.m in Sources */,
+				0C6B9EB520B1C673003EED4C /* LDXDownloadManager.m in Sources */,
+				0C6B9E7620B17E05003EED4C /* LDXDownload.m in Sources */,
 				0CFBE83720ADDC8400014231 /* main.m in Sources */,
 				0CFBE82920ADDC8300014231 /* AppDelegate.m in Sources */,
 			);
