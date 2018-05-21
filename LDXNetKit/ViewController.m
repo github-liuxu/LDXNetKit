@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "LDXNetKit.h"
+#import "LDXDownload.h"
 
 @interface ViewController ()
 
@@ -41,6 +42,28 @@
 //    } failed:^(NSURLResponse *response, NSError *connectionError) {
 //
 //    }];
+    
+//    [LDXDownload downloadUrlString:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"----》%f",progress);
+//    } downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } failed:^(NSURLResponse *response, NSError *connectionError) {
+//
+//    }];
+//    [LDXDownload downloadUrlString:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/2.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"---->>%f",progress);
+//    } downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } failed:^(NSURLResponse *response, NSError *connectionError) {
+//
+//    }];
+    [LDXDownload downloadUrlString:@"http://cd1n.awsbj0.fds.api.mi-img.com/vedio/3.mp3" param:nil progress:^(float progress) {
+        NSLog(@"----->>>%f",progress);
+    } downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
+        NSLog(@"%@",urlString);
+    } failed:^(NSURLResponse *response, NSError *connectionError) {
+        NSLog(@"%@",connectionError);
+    }];
 }
 
 

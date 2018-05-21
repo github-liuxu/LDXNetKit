@@ -14,22 +14,14 @@
 @property (nonatomic, copy) LDXProgress progress;
 @property (nonatomic, copy) LDXDownloadFinishBlock complateBlock;
 @property (nonatomic, copy) LDXDownloadFailedBlock failedBlock;
-@property (nonatomic, strong) NSMutableArray *tasks;
 @property (nonatomic, strong) NSURLSessionDownloadTask *task;
+@property (nonatomic, strong) NSString *downloadFilePath;
 
 @end
 
 @implementation LDXDownload
 
-- (instancetype)init {
-    if (self = [super init]) {
-        self.tasks = [NSMutableArray array];
-    }
-    return self;
-}
-
 - (void)dealloc {
-    [self cancelAllTask];
     NSLog(@"%s",__func__);
 }
 
@@ -79,17 +71,6 @@
     return task;
 }
 
-- (void)cancelAllTask {
-    for (NSURLSessionDownloadTask *task in self.tasks) {
-        [task cancel];
-    }
-    [self.tasks removeAllObjects];
-}
-
-- (NSMutableArray<NSURLSessionDownloadTask *> *)taskArray {
-    return self.tasks;
-}
-
 #pragma mark -NSURLSessionDelegate
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
       didWriteData:(int64_t)bytesWritten
@@ -117,17 +98,19 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     // AtPath : 剪切前的文件路径
     // ToPath : 剪切后的文件路径
     [mgr moveItemAtPath:location.path toPath:file error:nil];
-    [session finishTasksAndInvalidate];
-    [self.tasks removeObject:downloadTask];
+    self.downloadFilePath = file;
 }
 
 - (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(nullable NSError *)error {
-    self.failedBlock(nil, error);
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
     [session invalidateAndCancel];
-    [self.tasks removeObject:task];
+    if (error) {
+        self.failedBlock(task.response, error);
+    } else {
+        self.complateBlock(task.response, self.downloadFilePath);
+    }
 }
 
 
