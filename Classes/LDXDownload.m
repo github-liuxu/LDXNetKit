@@ -67,7 +67,6 @@
         request.HTTPBody = jsonData;
     }
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request];
-    [task resume];
     return task;
 }
 

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "LDXNetKit.h"
 #import "LDXDownload.h"
+#import "LDXDownloadManager.h"
 
 @interface ViewController ()
 
@@ -57,13 +58,31 @@
 //    } failed:^(NSURLResponse *response, NSError *connectionError) {
 //
 //    }];
-    [LDXDownload downloadUrlString:@"http://cd1n.awsbj0.fds.api.mi-img.com/vedio/3.mp3" param:nil progress:^(float progress) {
-        NSLog(@"----->>>%f",progress);
-    } downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
+//    __block LDXDownload *ldx = [LDXDownload downloadUrlString:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/3.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"----->>>%f",progress);
+//    } downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } failed:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [ldx.task suspend];
+//        NSLog(@"停了吧");
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [ldx.task resume];
+//        });
+//    });
+    LDXDownloadManager *manager = [LDXDownloadManager manager];
+    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/3.mp3" param:nil progress:^(float progress) {
+        NSLog(@"%f",progress);
+    } downloadFinish:^(NSURLResponse *response, NSString *urlString) {
         NSLog(@"%@",urlString);
-    } failed:^(NSURLResponse *response, NSError *connectionError) {
+    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
         NSLog(@"%@",connectionError);
     }];
+    
+    [manager startAllTasks];
+    [manager pauseAllTasks];
 }
 
 

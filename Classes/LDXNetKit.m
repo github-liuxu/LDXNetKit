@@ -20,7 +20,7 @@
             getStr = [getStr stringByAppendingFormat:@"%@=%@&",str,value];
         } else {
             NSInteger tempNum = [value integerValue];
-            getStr = [getStr stringByAppendingFormat:@"%@=%ld&",str,tempNum];
+            getStr = [getStr stringByAppendingFormat:@"%@=%ld&",str,(long)tempNum];
         }
     }
     getStr = [getStr substringToIndex:getStr.length-1];
