@@ -29,50 +29,8 @@
 //    } failed:^(NSURLResponse *response, NSError *connectionError) {
 //
 //    }];
-    
-//    [LDXNetKit downloadUrlString:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
-//        
-//    } failed:^(NSURLResponse *response, NSError *connectionError) {
-//        
-//    }];
-    
-//    [[[LDXNetKit alloc] init] downloadUrlString:@"http://c1dn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil progress:^(float progress) {
-//        NSLog(@"%f",progress);
-//    } downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
-//        NSLog(@"%@",urlString);
-//    } failed:^(NSURLResponse *response, NSError *connectionError) {
-//
-//    }];
-    
-//    [LDXDownload downloadUrlString:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil progress:^(float progress) {
-//        NSLog(@"----》%f",progress);
-//    } downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
-//        NSLog(@"%@",urlString);
-//    } failed:^(NSURLResponse *response, NSError *connectionError) {
-//
-//    }];
-//    [LDXDownload downloadUrlString:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/2.mp3" param:nil progress:^(float progress) {
-//        NSLog(@"---->>%f",progress);
-//    } downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
-//        NSLog(@"%@",urlString);
-//    } failed:^(NSURLResponse *response, NSError *connectionError) {
-//
-//    }];
-//    __block LDXDownload *ldx = [LDXDownload downloadUrlString:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/3.mp3" param:nil progress:^(float progress) {
-//        NSLog(@"----->>>%f",progress);
-//    } downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
-//        NSLog(@"%@",urlString);
-//    } failed:^(NSURLResponse *response, NSError *connectionError) {
-//        NSLog(@"%@",connectionError);
-//    }];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [ldx.task suspend];
-//        NSLog(@"停了吧");
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [ldx.task resume];
-//        });
-//    });
-    LDXDownloadManager *manager = [LDXDownloadManager manager];
+
+    LDXDownloadManager *manager = [LDXDownloadManager defaultManager];
     [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/3.mp3" param:nil progress:^(float progress) {
         NSLog(@"%f",progress);
     } downloadFinish:^(NSURLResponse *response, NSString *urlString) {
@@ -80,11 +38,18 @@
     } downFiald:^(NSURLResponse *response, NSError *connectionError) {
         NSLog(@"%@",connectionError);
     }];
-    
-    [manager startAllTasks];
-    [manager pauseAllTasks];
-}
+    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil progress:^(float progress) {
+        NSLog(@"%f",progress);
+    } downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+        NSLog(@"%@",urlString);
+    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+        NSLog(@"%@",connectionError);
+    }];
 
+    [manager startTaskWithIndex:0];
+    [manager startTaskWithIndex:1];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

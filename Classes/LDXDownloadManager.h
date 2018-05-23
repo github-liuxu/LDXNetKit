@@ -18,7 +18,7 @@ typedef void(^LDXDownloadFailedBlock)(NSURLResponse *response,NSError *connectio
 /**
  单例类初始化对象
  */
-@property (class, nonatomic, strong, readonly) LDXDownloadManager *manager;
+@property (class, nonatomic, strong, readonly) LDXDownloadManager *defaultManager;
 
 /**
  设置最大下载量
@@ -33,7 +33,7 @@ typedef void(^LDXDownloadFailedBlock)(NSURLResponse *response,NSError *connectio
 /**
  获取所有的下载任务(不包含已完成的)
  */
-@property (nonatomic, strong, readonly) NSMutableArray<LDXDownload*> *allTasks;
+@property (atomic, strong, readonly) NSMutableArray<LDXDownload*> *allTasks;
 
 /**
  移除所有的任务
@@ -49,6 +49,27 @@ typedef void(^LDXDownloadFailedBlock)(NSURLResponse *response,NSError *connectio
  开始所有任务
  */
 - (void)startAllTasks;
+
+/**
+ 开始指定任务
+
+ @param index 任务的下标
+ */
+- (void)startTaskWithIndex:(NSInteger)index;
+
+/**
+ 暂停指定任务
+ 
+ @param index 任务的下标
+ */
+- (void)pauseTaskWithIndex:(NSInteger)index;
+
+/**
+ 取消并移除指定任务
+ 
+ @param index 任务的下标
+ */
+- (void)removeTaskWithIndex:(NSInteger)index;
 
 /**
  添加一个下载任务
