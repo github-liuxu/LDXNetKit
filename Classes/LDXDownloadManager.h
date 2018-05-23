@@ -80,6 +80,6 @@ typedef void(^LDXDownloadFailedBlock)(NSURLResponse *response,NSError *connectio
  @param downloadFinish 下载完成的回调
  @param downloadFiald 下载失败的回调
  */
-- (void)addDownloadTask:(NSString *)urlString param:(NSDictionary *)param progress:(LDXProgress)progress downloadFinish:(LDXDownloadFinishBlock)downloadFinish downFiald:(LDXDownloadFailedBlock)downloadFiald;
+- (void)addDownloadTask:(NSString *)urlString param:(NSDictionary *)param progress:(LDXProgress)progress fileName:(NSString *)fileName downloadFinish:(LDXDownloadFinishBlock)downloadFinish downFiald:(LDXDownloadFailedBlock)downloadFiald;
 
 @end

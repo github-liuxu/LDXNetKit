@@ -87,9 +87,17 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     // location : 临时文件的路径（下载好的文件）
     
     NSString *caches = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    if (self.fileDir) {
+        caches = self.fileDir;
+    }
     // response.suggestedFilename ： 建议使用的文件名，一般跟服务器端的文件名一致
-    
-    NSString *file = [caches stringByAppendingPathComponent:downloadTask.response.suggestedFilename];
+    NSString *file = @"";
+    //如果文件名存在则用指定的文件名
+    if (self.fileName) {
+        file = [caches stringByAppendingPathComponent:self.fileName];
+    } else {
+        file = [caches stringByAppendingPathComponent:downloadTask.response.suggestedFilename];
+    }
     
     // 将临时文件剪切或者复制Caches文件夹
     NSFileManager *mgr = [NSFileManager defaultManager];

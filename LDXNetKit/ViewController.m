@@ -33,21 +33,27 @@
     LDXDownloadManager *manager = [LDXDownloadManager defaultManager];
     [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/3.mp3" param:nil progress:^(float progress) {
         NSLog(@"%f",progress);
-    } downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
         NSLog(@"%@",urlString);
     } downFiald:^(NSURLResponse *response, NSError *connectionError) {
         NSLog(@"%@",connectionError);
     }];
     [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil progress:^(float progress) {
         NSLog(@"%f",progress);
-    } downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
         NSLog(@"%@",urlString);
     } downFiald:^(NSURLResponse *response, NSError *connectionError) {
         NSLog(@"%@",connectionError);
     }];
 
     [manager startTaskWithIndex:0];
-    [manager startTaskWithIndex:1];
+//    [manager startTaskWithIndex:1];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [manager pauseTaskWithIndex:0];
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [manager startAllTasks];
+    });
     
 }
 

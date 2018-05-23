@@ -39,6 +39,7 @@
 
 - (void)pauseAllTasks {
     for (LDXDownload *ldxDownload in self.allTasks) {
+        ldxDownload.isPause = YES;
         if (ldxDownload.task.state == NSURLSessionTaskStateRunning) {
             [ldxDownload.task suspend];
         }
@@ -46,8 +47,7 @@
 }
 
 - (void)startAllTasks {
-    //触发set方法会在set方法里进行启动下载
-    self.maxDownloadCount = self.maxDownloadCount;
+    [self startTasksWithContainManualPause:YES];
 }
 
 - (void)startTaskWithIndex:(NSInteger)index {
@@ -60,6 +60,7 @@
     }
     
     LDXDownload *ldxDownload = self.allTasks[index];
+    ldxDownload.isPause = NO;
     if (ldxDownload.task.state == NSURLSessionTaskStateSuspended) {
         [ldxDownload.task resume];
     }
@@ -75,6 +76,7 @@
         return;
     } else {
         LDXDownload *ldxDownload = self.allTasks[index];
+        ldxDownload.isPause = YES;
         if (ldxDownload.task.state == NSURLSessionTaskStateRunning) {
             [ldxDownload.task suspend];
         }
@@ -92,11 +94,16 @@
         LDXDownload *ldxDownload = self.allTasks[index];
         [ldxDownload.task cancel];
         [self.allTasks removeObject:ldxDownload];
+        ldxDownload = nil;
     }
 }
 
 - (void)setMaxDownloadCount:(NSInteger)maxDownloadCount {
     _maxDownloadCount = maxDownloadCount;
+    [self startTasksWithContainManualPause:NO];
+}
+
+- (void)startTasksWithContainManualPause:(BOOL)isContainManualPause {
     NSInteger downloadingCount = [self getDownloadingTaskCount];
     if (_maxDownloadCount > downloadingCount) {
         //最大下载个数大于正在下载的个数
@@ -104,12 +111,25 @@
         NSInteger index = _maxDownloadCount - downloadingCount;
         for (int i = 0; i < self.allTasks.count; i++) {
             LDXDownload *ldxDownload = self.allTasks[i];
-            if (ldxDownload.task.state == NSURLSessionTaskStateSuspended) {
-                if (index <= 0) {
-                    return ;
+            if (isContainManualPause) {
+                if (ldxDownload.task.state == NSURLSessionTaskStateSuspended) {
+                    if (index <= 0) {
+                        return ;
+                    }
+                    [ldxDownload.task resume];
+                    index --;
                 }
-                [ldxDownload.task resume];
-                index --;
+            } else {
+                //如果不是被暂停的则启动
+                if (!ldxDownload.isPause) {
+                    if (ldxDownload.task.state == NSURLSessionTaskStateSuspended) {
+                        if (index <= 0) {
+                            return ;
+                        }
+                        [ldxDownload.task resume];
+                        index --;
+                    }
+                }
             }
         }
         
@@ -121,12 +141,15 @@
         NSInteger index = downloadingCount - _maxDownloadCount;
         for (int i = 0; i < self.allTasks.count; i++) {
             LDXDownload *ldxDownload = self.allTasks[self.allTasks.count-1-i];
-            if (ldxDownload.task.state == NSURLSessionTaskStateSuspended) {
-                if (index <= 0) {
-                    return ;
+            //如果不是被手动暂停的则停止
+            if (!ldxDownload.isPause) {
+                if (ldxDownload.task.state == NSURLSessionTaskStateSuspended) {
+                    if (index <= 0) {
+                        return ;
+                    }
+                    [ldxDownload.task suspend];
+                    index --;
                 }
-                [ldxDownload.task suspend];
-                index --;
             }
         }
         
@@ -143,7 +166,7 @@
     return taskIndex;
 }
 
-- (void)addDownloadTask:(NSString *)urlString param:(NSDictionary *)param progress:(LDXProgress)progress downloadFinish:(LDXDownloadFinishBlock)downloadFinish downFiald:(LDXDownloadFailedBlock)downloadFiald {
+- (void)addDownloadTask:(NSString *)urlString param:(NSDictionary *)param progress:(LDXProgress)progress fileName:(NSString *)fileName downloadFinish:(LDXDownloadFinishBlock)downloadFinish downFiald:(LDXDownloadFailedBlock)downloadFiald {
     __weak typeof(self)weakSelf = self;
     __block LDXDownload *ldxDownload = [LDXDownload downloadUrlString:urlString param:param progress:progress downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
         if ([weakSelf.allTasks containsObject:ldxDownload]) {
@@ -151,6 +174,7 @@
         }
         downloadFinish(response, urlString);
         ldxDownload = nil;
+        [weakSelf startTasksWithContainManualPause:NO];
     } failed:^(NSURLResponse *response, NSError *connectionError) {
         if ([weakSelf.allTasks containsObject:ldxDownload]) {
             [weakSelf.allTasks removeObject:ldxDownload];
@@ -158,6 +182,8 @@
         downloadFiald(response, connectionError);
         ldxDownload = nil;
     }];
+    ldxDownload.fileDir = self.downloadDir;
+    ldxDownload.fileName = fileName;
     [self.allTasks addObject:ldxDownload];
 }
 
