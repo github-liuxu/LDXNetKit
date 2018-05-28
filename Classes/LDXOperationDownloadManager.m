@@ -40,10 +40,13 @@
     [self.queue cancelAllOperations];
 }
 
+- (NSArray<NSOperation *> *)operations {
+    return [self.queue operations];
+}
+
 - (void)addDownloadTask:(NSString *)urlString param:(NSDictionary *)param progress:(LDXProgress)progress fileName:(NSString *)fileName downloadFinish:(LDXDownloadFinishBlock)downloadFinish downFiald:(LDXDownloadFailedBlock)downloadFiald {
     __weak typeof(self)weakSelf = self;
     NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-        NSLog(@"%@",[NSThread currentThread]);
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         LDXDownload *ldxDownload = [LDXDownload downloadUrlString:urlString param:param progress:progress downLoadFinish:^(NSURLResponse *response, NSString *urlString) {
             downloadFinish(response, urlString);
@@ -56,7 +59,6 @@
         ldxDownload.fileName = fileName;
         [ldxDownload.task resume];
         dispatch_wait(semaphore, DISPATCH_TIME_FOREVER);
-        ldxDownload = nil;
     }];
     [self.queue addOperation:op];
 }
