@@ -20,7 +20,7 @@ typedef void(^LDXDownloadFailedBlock)(NSURLResponse *response,NSError *connectio
 @property (class, nonatomic, strong, readonly) LDXOperationDownloadManager *defaultManager;
 
 /**
- 获取所有的operation
+ 获取当前的operations
  */
 @property (readonly, copy) NSArray<__kindof NSOperation *> *operations;
 
