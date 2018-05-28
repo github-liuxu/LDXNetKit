@@ -10,6 +10,7 @@
 #import "LDXNetKit.h"
 #import "LDXDownload.h"
 #import "LDXDownloadManager.h"
+#import "LDXOperationDownloadManager.h"
 
 @interface ViewController ()
 
@@ -54,23 +55,74 @@
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [manager startAllTasks];
 //    });
+//    LDXOperationDownloadManager *manager = [LDXOperationDownloadManager defaultManager];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"111-->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/2.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"222->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/3.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"333->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/4.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"444->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/5.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"555->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/6.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"666->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/7.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"777->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    
 //
-    __weak typeof (self)weakSelf = self;
-    [LDXNetKit GETUrlString:@"https://my.ishadowx.net" param:nil result:^(NSURLResponse *response, NSString *result) {
-        NSLog(@"%@", result);
-        
-        NSMutableArray *ipsArr = [weakSelf ipsFromString:result];
-        NSLog(@"%@", ipsArr);
-        NSMutableArray *portsArr = [weakSelf portsFromString:result];
-        NSLog(@"%@", portsArr);
-        NSMutableArray *passwordsArr = [weakSelf passwordFromString:result];
-        NSLog(@"%@", passwordsArr);
-        NSMutableArray *methodsArr = [weakSelf methodFromString:result];
-        NSLog(@"%@", methodsArr);
-        
-    } failed:^(NSURLResponse *response, NSError *connectionError) {
-        
-    }];
+//    __weak typeof (self)weakSelf = self;
+//    [LDXNetKit GETUrlString:@"https://my.ishadowx.net" param:nil result:^(NSURLResponse *response, NSString *result) {
+//        NSLog(@"%@", result);
+//
+//        NSMutableArray *ipsArr = [weakSelf ipsFromString:result];
+//        NSLog(@"%@", ipsArr);
+//        NSMutableArray *portsArr = [weakSelf portsFromString:result];
+//        NSLog(@"%@", portsArr);
+//        NSMutableArray *passwordsArr = [weakSelf passwordFromString:result];
+//        NSLog(@"%@", passwordsArr);
+//        NSMutableArray *methodsArr = [weakSelf methodFromString:result];
+//        NSLog(@"%@", methodsArr);
+//
+//    } failed:^(NSURLResponse *response, NSError *connectionError) {
+//
+//    }];
     
     
 }
