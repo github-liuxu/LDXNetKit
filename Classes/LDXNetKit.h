@@ -29,6 +29,6 @@ typedef void(^LDXFailedBlock)(NSURLResponse *response,NSError *connectionError);
 //返回字符串
 + (void)POSTUrlString:(NSString *)urlString param:(NSDictionary *)param result:(LDXResultBlock)resultBlock failed:(LDXFailedBlock)failedBlock;
 //自定义服务器认证评估
-- (void)POSTUrlString:(NSString *)urlString param:(NSDictionary *)param mode:(Mode)mode customizeServerTrustEvaluationResult:(LDXResultBlock)resultBlock failed:(LDXFailedBlock)failedBlock;
+- (void)POSTUrlString:(NSString *)urlString param:(NSDictionary *)param mode:(Mode)mode isNetCache:(BOOL)isNetCache customizeServerTrustEvaluationResult:(LDXResultBlock)resultBlock failed:(LDXFailedBlock)failedBlock;
 
 @end

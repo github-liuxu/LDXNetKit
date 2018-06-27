@@ -10,7 +10,7 @@
 #import "LDXNetKit.h"
 #import "LDXDownload.h"
 #import "LDXDownloadManager.h"
-#import "LDXOperationDownloadManager.h"
+//#import "LDXOperationDownloadManager.h"
 
 @interface ViewController ()
 
@@ -21,6 +21,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    NSDictionary *dic = @{@"email":@"chuyang009@163.com",@"passwd":@"271828ldx",@"remember_me":@"week"};
+    LDXNetKit *ldxKit = [LDXNetKit new];
+    [ldxKit POSTUrlString:@"https://www.ssandssr.tk/auth/login" param:dic mode:Text isNetCache:NO customizeServerTrustEvaluationResult:^(NSURLResponse *response, NSString *result) {
+        NSLog(@"%@",result);
+        [ldxKit POSTUrlString:@"https://www.ssandssr.tk/user/checkin" param:nil mode:Text isNetCache:YES customizeServerTrustEvaluationResult:^(NSURLResponse *response, NSString *result) {
+            NSLog(@"%@",result);
+        } failed:^(NSURLResponse *response, NSError *connectionError) {
+            NSLog(@"%@",connectionError.localizedDescription);
+        }];
+    } failed:^(NSURLResponse *response, NSError *connectionError) {
+        NSLog(@"%@",connectionError.localizedDescription);
+    }];
+//    [LDXNetKit POSTUrlString:@"https://www.ssandssr.tk/auth/login" param:dic result:^(NSURLResponse *response, NSString *result) {
+//        NSLog(@"%@",result);
+//    } failed:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError.localizedDescription);
+//    }];
+    
 //    NSDictionary *dic = @{@"cmd":@"audios",
 //                          @"page":@"1",
 //                          @"pagesize":@30
@@ -55,56 +73,56 @@
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [manager startAllTasks];
 //    });
-    LDXOperationDownloadManager *manager = [LDXOperationDownloadManager defaultManager];
-    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil progress:^(float progress) {
-        NSLog(@"111-->%f",progress);
-    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
-        NSLog(@"%@",urlString);
-    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
-        NSLog(@"%@",connectionError);
-    }];
-    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/2.mp3" param:nil progress:^(float progress) {
-        NSLog(@"222->%f",progress);
-    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
-        NSLog(@"%@",urlString);
-    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
-        NSLog(@"%@",connectionError);
-    }];
-    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/3.mp3" param:nil progress:^(float progress) {
-        NSLog(@"333->%f",progress);
-    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
-        NSLog(@"%@",urlString);
-    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
-        NSLog(@"%@",connectionError);
-    }];
-    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/4.mp3" param:nil progress:^(float progress) {
-        NSLog(@"444->%f",progress);
-    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
-        NSLog(@"%@",urlString);
-    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
-        NSLog(@"%@",connectionError);
-    }];
-    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/5.mp3" param:nil progress:^(float progress) {
-        NSLog(@"555->%f",progress);
-    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
-        NSLog(@"%@",urlString);
-    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
-        NSLog(@"%@",connectionError);
-    }];
-    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/6.mp3" param:nil progress:^(float progress) {
-        NSLog(@"666->%f",progress);
-    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
-        NSLog(@"%@",urlString);
-    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
-        NSLog(@"%@",connectionError);
-    }];
-    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/7.mp3" param:nil progress:^(float progress) {
-        NSLog(@"777->%f",progress);
-    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
-        NSLog(@"%@",urlString);
-    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
-        NSLog(@"%@",connectionError);
-    }];
+//    LDXOperationDownloadManager *manager = [LDXOperationDownloadManager defaultManager];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/1.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"111-->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/2.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"222->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/3.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"333->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/4.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"444->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/5.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"555->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/6.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"666->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
+//    [manager addDownloadTask:@"http://cdn.awsbj0.fds.api.mi-img.com/vedio/7.mp3" param:nil progress:^(float progress) {
+//        NSLog(@"777->%f",progress);
+//    } fileName:nil downloadFinish:^(NSURLResponse *response, NSString *urlString) {
+//        NSLog(@"%@",urlString);
+//    } downFiald:^(NSURLResponse *response, NSError *connectionError) {
+//        NSLog(@"%@",connectionError);
+//    }];
 //
 //
 //    __weak typeof (self)weakSelf = self;
@@ -126,6 +144,7 @@
     
     
 }
+
 
 - (NSMutableArray *)ipsFromString:(NSString *)string{
     NSString *pattern = @"Address.*</span> ";

@@ -116,7 +116,7 @@
     [task resume];
 }
 
-- (void)POSTUrlString:(NSString *)urlString param:(NSDictionary *)param mode:(Mode)mode customizeServerTrustEvaluationResult:(LDXResultBlock)resultBlock failed:(LDXFailedBlock)failedBlock {
+- (void)POSTUrlString:(NSString *)urlString param:(NSDictionary *)param mode:(Mode)mode isNetCache:(BOOL)isNetCache customizeServerTrustEvaluationResult:(LDXResultBlock)resultBlock failed:(LDXFailedBlock)failedBlock {
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
     request.HTTPMethod = @"POST";
@@ -142,7 +142,12 @@
         }
         request.HTTPBody = jsonData;
     }
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.defaultSessionConfiguration delegate:self delegateQueue:NSOperationQueue.new];
+    NSURLSession *session = nil;
+    if (isNetCache) {
+        session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.defaultSessionConfiguration delegate:self delegateQueue:NSOperationQueue.new];
+    } else {
+        session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration delegate:self delegateQueue:NSOperationQueue.new];
+    }
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failedBlock(response, error);
